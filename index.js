@@ -7,14 +7,17 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.get('/', require('./controllers/root'))
 app.use(cors({credentials: true}))
+
+
+
+app.post('/signup', require('./controllers/postSignup'))
+
+app.post('/login', require('./controllers/postLogin'))
 
 app.listen(4000, () => {
 	console.log('Listening on PORT 4000');
-})
-
-app.get('/', (req,res) => {
-	res.send('Connected')
 })
 
 mongoose.connect('mongodb://localhost:27017/calorie-log', {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
